@@ -84,7 +84,7 @@ class WheelTimer(object):
         self.day_wheel = DayWheel()
 
     def add(self, time, data):
-        if time.day > 0:
+        if time.day > 0 and time.day < 365:
             self.day_wheel.add(time.day, time, data)
         elif time.hour > 0:
             self.hour_wheel.add(time.hour, time, data)
