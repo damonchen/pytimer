@@ -14,7 +14,7 @@ class Wheel(object):
 
     def __init__(self, size):
         self.size = size        # 0~59, or 0~23
-        self.pointer = 0
+        self.pointer = 0        # wheel指针，达到wheel_buffer尾部后会重新重头开始
         self._init_wheel_buffer(size)
 
     def _init_wheel_buffer(self, size):
