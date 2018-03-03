@@ -83,7 +83,35 @@ class WheelTimer(object):
         self.hour_wheel = HourWheel()
         self.day_wheel = DayWheel()
 
+
+    def adjust_second(self, time):
+        day = time.day
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        second = self.second_wheel.pointer + second
+        if second >= 60:
+            second -= 60
+            minute += 1
+
+        if minute >= 60:
+            minute -= 60
+            hour += 1
+
+        if hour >= 24:
+            hour -= 24
+            day += 1
+
+        if day > 365:
+            raise InvalidTime("invalid time")
+
+        return Time(second, minute, hour, day)
+
+
     def add(self, time, data):
+        time = self.adjust_second(time)
+
         if time.day > 0 and time.day < 365:
             self.day_wheel.add(time.day, time, data)
         elif time.hour > 0:
